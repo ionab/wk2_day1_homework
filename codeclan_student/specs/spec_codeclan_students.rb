@@ -28,4 +28,7 @@ class TestStudent < MiniTest::Test
     @codeclan_student.set_student_name("Iona")
     assert_equal("Iona", @codeclan_student.student_name)
   end
+  def test_if_student_can_talk
+    assert_equal("I can talk!", @codeclan_student.student_can_talk)
+  end
 end
