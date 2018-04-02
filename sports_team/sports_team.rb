@@ -18,10 +18,11 @@
 
 
 class SportsTeam
-  def initialize(team_name, players, coach)
+  def initialize(team_name, players, coach, points)
     @team_name = team_name
     @players = players
     @coach = coach
+    @points = 0
   end
   def team_name
     return @team_name
@@ -38,15 +39,6 @@ class SportsTeam
   def add_player_to_team(new_player)
     @players << new_player
   end
-
-  #  def find_pet_by_name(pet_shop, pet_name)
-    #   for pet in pet_shop[:pets]
-    #     if pet[:name] == pet_name
-    #       return pet
-    #     end
-    #   end
-    #   return nil
-    # end
   def is_player_in_team(players_name)
     for person in @players
       if person == players_name
@@ -55,6 +47,10 @@ class SportsTeam
         return false
       end
     end
-
+  end
+  def add_points_following_win(result)
+    if result == "win"
+      @points += 3
+    end
   end
 end
