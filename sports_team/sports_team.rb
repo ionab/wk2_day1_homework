@@ -35,4 +35,7 @@ class SportsTeam
   def set_coach_name(name)
     @coach = name
   end
+  def add_player_to_team(player)
+    @players << player
+  end
 end
