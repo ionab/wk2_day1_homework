@@ -35,7 +35,26 @@ class SportsTeam
   def set_coach_name(name)
     @coach = name
   end
-  def add_player_to_team(player)
-    @players << player
+  def add_player_to_team(new_player)
+    @players << new_player
+  end
+
+  #  def find_pet_by_name(pet_shop, pet_name)
+    #   for pet in pet_shop[:pets]
+    #     if pet[:name] == pet_name
+    #       return pet
+    #     end
+    #   end
+    #   return nil
+    # end
+  def is_player_in_team(players_name)
+    for person in @players
+      if person == players_name
+        return true
+      else
+        return false
+      end
+    end
+
   end
 end
