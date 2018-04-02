@@ -27,7 +27,13 @@ class TestLibrary < MiniTest::Test
   end
 
   def test_book_name
-    assert_equal("Coding for beginners", @library.book_name)
+    assert_equal([{
+        title: "Coding for beginners",
+        rental_details: {student_name: "Kelsie", date: "03/04/18"}
+      }], @library.book)
+  end
+  def test_output_information_by_book_name
+    assert_equal([{title: "Coding for beginners", rental_details: {student_name: "Kelsie", date: "03/04/18"}}], @library.output_information_by_book_name("Coding for beginners"))
   end
 
 end
