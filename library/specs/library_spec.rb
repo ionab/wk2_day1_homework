@@ -1,42 +1,59 @@
 require ('minitest/autorun')
 require_relative('../library.rb')
 
-# * Create a getter for the books
-# * Create a method that takes in a book
-#   title and returns all of the information
-#   about that book.
-# * Create a method that takes in a book
-#   title and returns only the rental details for that book.
-# * Create a method that takes in a book title
-#  and adds it to our book list (add a new hash for the book with the student name and date being left as empty strings)
-# * Create a method that changes the rental details of a book
-#   by taking in the title of the book, the student renting it and the date
-#   it's due to be returned.
-
 class TestLibrary < MiniTest::Test
-  def setup()  # you can use this setup function, which will run at the start of every test
-      @library =  Library.new([{
-          title: "Coding for beginners",
-          rental_details: {
-           student_name: "Kelsie",
-           date: "03/04/18"
-          }
+  def setup()
+    @books = [{
+        title: "lord_of_the_rings",
+        rental_details: {
+         student_name: "Kelsie",
+         date: "03/04/18"
+        }}]
+      @library =  Library.new(@books)
+  end
+
+  def test_get_books()
+    assert_equal(@books, @library.books)
+  end
+
+  def test_get_book_info()
+    info = @library.book_info("lord_of_the_rings")
+    assert_equal(@books[0], info)
+  end
+
+
+  def test_get_book_info__not_found ()
+    assert_nil(@library.book_info"Alan's autobiography")
+  end
+
+
+  def test_get_rental_details()
+    assert_equal(@books[0][:rental_details], @library.rental_details("lord_of_the_rings"))
+  end
+
+  def test_get_retal_details__not_found()
+    assert_nil(@library.rental_details("Alan's autobiography"))
+  end
+
+  def test_add_book()
+    @library.add_book("Harry Potter")
+    assert_equal({
+      title: "Harry Potter",
+      rental_details: {
+        student_name: "",
+        date: ""
         }
-    ])
-
+      }, @library.book_info("Harry Potter"))
   end
-
-  def test_book_name
-    assert_equal([{
-        title: "Coding for beginners",
-        rental_details: {student_name: "Kelsie", date: "03/04/18"}
-      }], @library.book)
+  def test_change_rental_details()
+    @library.add_book("Harry Potter")
+    @library.change_rental_details("Harry Potter", "Sarah", "04/04/2018")
+    assert_equal({
+      title: "Harry Potter",
+      rental_details: {
+        student_name: "Sarah",
+        date: "04/04/2018"
+        }
+      }, @library.book_info("Harry Potter"))
   end
-  def test_output_information_by_book_name
-    assert_equal([{title: "Coding for beginners", rental_details: {student_name: "Kelsie", date: "03/04/18"}}], @library.output_information_by_book_name("Coding for beginners"))
-  end
-  def test_output_retal_details_by_book_name
-    assert_equal({rental_details: {student_name: "Kelsie", date: "03/04/18"}}, @library.output_retal_details_by_book_name("Coding for beginners"))
-  end
-
 end
